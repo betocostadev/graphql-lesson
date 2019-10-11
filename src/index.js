@@ -13,6 +13,8 @@ import { store, persistor } from './redux/store';
 import './index.css';
 import App from './App';
 
+import { resolvers, typeDefs } from './graphql/resolvers'
+
 // Estabilish the connection to the back-end
 const httpLink = createHttpLink({
   uri: 'https://crwn-clothing.com'
@@ -22,7 +24,9 @@ const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   link: httpLink,
-  cache
+  cache,
+  typeDefs,
+  resolvers
 });
 
 // This client query is just a test!
@@ -45,6 +49,13 @@ client
     `
   })
   .then(res => console.log(res))
+
+// We want to immediatelly write data on the client when the app starts
+client.writeData({
+  data: {
+    cartHidden: true
+  }
+})
 
 ReactDOM.render(
   <ApolloProvider client={client}>
