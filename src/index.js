@@ -1,3 +1,9 @@
+/* ATTENTION!!!
+
+Part 232 of the Course is the one that recommends to convert all other components to Apollo
+and use it with GraphQL instead of Redux. There is code up till now and even further. Check it.
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -33,7 +39,8 @@ const client = new ApolloClient({
 client.writeData({
   data: {
     cartHidden: true,
-    cartItems: []
+    cartItems: [],
+    itemCount: 0
   }
 })
 

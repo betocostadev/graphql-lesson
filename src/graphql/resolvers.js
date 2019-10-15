@@ -3,7 +3,7 @@
 import { gql } from 'apollo-boost'
 
 // We copied the cart.utils from Redux into the graphql folder to use it here
-import { addItemToCart } from './cart.utils'
+import { addItemToCart, getCartItemCount } from './cart.utils'
 
 // Define the schema that the local side is going to use
 // extend the types of mutation that might exists in the back end
@@ -26,6 +26,13 @@ const GET_CART_HIDDEN = gql`
     cartHidden @client
   }
 `;
+
+const GET_ITEM_COUNT = gql`
+  {
+    itemCount @client
+  }
+`
+
 
 const GET_CART_ITEMS = gql`
   {
@@ -67,6 +74,11 @@ export const resolvers = {
       });
 
       const newCartItems = addItemToCart(cartItems, item)
+
+      cache.writeQuery({
+        query: GET_ITEM_COUNT,
+        data: { itemCount: getCartItemCount(newCartItems) }
+      });
 
       cache.writeQuery({
         query: GET_CART_ITEMS,
