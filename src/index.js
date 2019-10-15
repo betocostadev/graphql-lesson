@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http'; // It will allow us to connect with /graphql
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient, gql } from 'apollo-boost'; // gql is a function from Apollo Boost
+import { ApolloClient } from 'apollo-boost'; // gql is a function from Apollo Boost
 
 import { store, persistor } from './redux/store';
 
@@ -29,31 +29,11 @@ const client = new ApolloClient({
   resolvers
 });
 
-// This client query is just a test!
-// The gql app query with GraphQL - Its where we use the gql to be able to write like in graphql
-client
-  .query({
-    query: gql`
-      {
-        getCollectionsByTitle(title: "hats") {
-          id
-          title
-          items {
-            id
-            name
-            price
-            imageUrl
-          }
-        }
-      }
-    `
-  })
-  .then(res => console.log(res))
-
 // We want to immediatelly write data on the client when the app starts
 client.writeData({
   data: {
-    cartHidden: true
+    cartHidden: true,
+    cartItems: []
   }
 })
 

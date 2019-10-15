@@ -25,7 +25,10 @@ const GET_COLLECTION_BY_TITLE = gql`
 // The variables are the way we pass the variables that our query is expecting
 // as above in the getCollectionsByTitle($title: String!)
 const CollectionPageContainer = ({ match }) => (
-  <Query query={GET_COLLECTION_BY_TITLE} variables={{ title : match.params.collectionId }}>
+  <Query
+    query={GET_COLLECTION_BY_TITLE}
+    variables={{ title : match.params.collectionId }}
+  >
     {
       ({loading, data}) => {
         // loading

@@ -12,9 +12,9 @@ const TOGGLE_CART_HIDDEN = gql`
 
 const CartIconContainer = () => (
   <Mutation mutation={TOGGLE_CART_HIDDEN}>
-  {
-    toggleCartHidden => <CartIcon toggleCartHidden={toggleCartHidden} />
-  }
+    {
+      toggleCartHidden => <CartIcon toggleCartHidden={toggleCartHidden} />
+    }
   </Mutation>
 )
 
